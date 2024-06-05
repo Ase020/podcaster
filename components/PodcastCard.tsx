@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 interface PodcastProps {
-  podcastId: number;
+  podcastId: string;
   title: string;
   description: string;
   imgURL: string;

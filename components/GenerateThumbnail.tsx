@@ -160,6 +160,7 @@ function GenerateThumbnail({
             <Image
               src="/icons/upload-image.svg"
               alt="upload"
+              className="size-10"
               width={40}
               height={40}
             />
