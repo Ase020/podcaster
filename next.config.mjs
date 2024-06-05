@@ -6,6 +6,10 @@ const nextConfig = {
         hostname: "lovely-flamingo-139.convex.cloud",
         protocol: "https",
       },
+      {
+        hostname: "honorable-spoonbill-776.convex.cloud",
+        protocol: "https",
+      },
     ],
   },
 };
