@@ -43,7 +43,7 @@ const formSchema = z.object({
 const CreatePodcast = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const [voiceType, setVoiceType] = React.useState<string | null>(null);
+  const [voiceType, setVoiceType] = React.useState<string>("");
   const [voicePrompt, setVoicePrompt] = React.useState("");
 
   const [imagePrompt, setImagePrompt] = React.useState("");

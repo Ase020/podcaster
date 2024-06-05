@@ -57,7 +57,7 @@ export interface GeneratePodcastProps {
   setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
   setVoicePrompt: Dispatch<SetStateAction<string>>;
   voicePrompt: string;
-  voiceType: string | null;
+  voiceType: string;
 }
 
 export interface GenerateThumbnailProps {
