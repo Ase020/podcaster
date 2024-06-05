@@ -3,19 +3,18 @@ import { GeneratePodcastProps } from "@/types";
 import { useAction, useMutation } from "convex/react";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useToast } from "@/components/ui/use-toast";
 
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
 
 export const useGeneratePodcast = ({
-  audio,
   setAudio,
-  setAudioDuration,
   setAudioStorageId,
-  setVoicePrompt,
   voicePrompt,
   voiceType,
 }: GeneratePodcastProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
 
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
@@ -27,6 +26,9 @@ export const useGeneratePodcast = ({
     setAudio("");
 
     if (!voicePrompt) {
+      toast({
+        title: "Please provide a voiceType to generate a podcast",
+      });
       return setIsGenerating(false);
     }
 
@@ -48,8 +50,15 @@ export const useGeneratePodcast = ({
       const audioUrl = await getAudioUrl({ storageId });
       setAudio(audioUrl!);
       setIsGenerating(false);
+      toast({
+        title: "Podcast generated successfully! 🎉",
+      });
     } catch (error) {
       console.error("Error generating podcast.", error);
+      toast({
+        title: "Error creating a podcast!",
+        variant: "destructive",
+      });
       setIsGenerating(false);
     }
   };
