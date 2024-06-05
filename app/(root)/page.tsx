@@ -21,7 +21,7 @@ function Home() {
                 key={_id}
                 title={podcastTitle}
                 description={podcastDescription}
-                imgURL={imageUrl as string}
+                imgUrl={imageUrl as string}
                 podcastId={_id}
               />
             )
