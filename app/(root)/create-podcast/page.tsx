@@ -25,20 +25,42 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { voiceDetails } from "@/constants";
+import { Textarea } from "@/components/ui/textarea";
+import GeneratePodcast from "@/components/GeneratePodcast";
+import GenerateThumbnail from "@/components/GenerateThumbnail";
+import { LoaderCircle } from "lucide-react";
+import { Id } from "@/convex/_generated/dataModel";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  podcastTitle: z.string().min(2, {
+    message: "Title must be at least 2 characters.",
+  }),
+  podcastDescription: z.string().min(2, {
+    message: "Description must be at least 2 characters.",
   }),
 });
 
 const CreatePodcast = () => {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
   const [voiceType, setVoiceType] = React.useState<string | null>(null);
+  const [voicePrompt, setVoicePrompt] = React.useState("");
+
+  const [imagePrompt, setImagePrompt] = React.useState("");
+  const [imageStorageId, setImageStorageId] =
+    React.useState<Id<"_storage"> | null>(null);
+  const [imageUrl, setImageUrl] = React.useState("");
+
+  const [audioUrl, setAudioUrl] = React.useState("");
+  const [audioDuration, setAudioDuration] = React.useState(0);
+  const [audioStorageId, setAudioStorageId] =
+    React.useState<Id<"_storage"> | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      podcastTitle: "",
+      podcastDescription: "",
     },
   });
 
@@ -70,7 +92,7 @@ const CreatePodcast = () => {
                     <Input
                       placeholder="The Joe Rogan Experience"
                       {...field}
-                      className="input-class focus-visible:ring-orange-1"
+                      className="input-class focus-visible:ring-offset-orange-1"
                     />
                   </FormControl>
 
@@ -87,7 +109,7 @@ const CreatePodcast = () => {
               <Select onValueChange={(value) => setVoiceType(value)}>
                 <SelectTrigger
                   className={cn(
-                    "text-16 w-full border-none bg-black-1 text-gray-1"
+                    "text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1"
                   )}
                 >
                   <SelectValue
@@ -115,6 +137,56 @@ const CreatePodcast = () => {
                   />
                 )}
               </Select>
+            </div>
+
+            <FormField
+              control={form.control}
+              name="podcastDescription"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-2.5">
+                  <FormLabel className="text-16 font-bold text-white-1">
+                    Description
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Write a short podcast description"
+                      {...field}
+                      className="input-class focus-visible:ring-offset-orange-1"
+                    />
+                  </FormControl>
+
+                  <FormMessage className="text-white-1" />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="flex flex-col pt-10">
+            <GeneratePodcast
+              setAudioStorageId={setAudioStorageId}
+              setAudio={setAudioUrl}
+              voiceType={voiceType}
+              audio={audioUrl}
+              voicePrompt={voicePrompt}
+              setVoicePrompt={setVoicePrompt}
+              setAudioDuration={setAudioDuration}
+            />
+            <GenerateThumbnail />
+
+            <div className="mt-10 w-full">
+              <Button
+                type="submit"
+                className="text-16 w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1"
+              >
+                {isSubmitting ? (
+                  <>
+                    <LoaderCircle className="animate-spin size-4" />
+                    <span className="ml-1.5">Submitting...</span>
+                  </>
+                ) : (
+                  "Submit & Publish Podcast"
+                )}
+              </Button>
             </div>
           </div>
         </form>

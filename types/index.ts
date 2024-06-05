@@ -51,13 +51,13 @@ export interface ProfilePodcastProps {
 }
 
 export interface GeneratePodcastProps {
-  voiceType: string;
-  setAudio: Dispatch<SetStateAction<string>>;
   audio: string;
-  setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
-  voicePrompt: string;
-  setVoicePrompt: Dispatch<SetStateAction<string>>;
+  setAudio: Dispatch<SetStateAction<string>>;
   setAudioDuration: Dispatch<SetStateAction<number>>;
+  setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
+  setVoicePrompt: Dispatch<SetStateAction<string>>;
+  voicePrompt: string;
+  voiceType: string | null;
 }
 
 export interface GenerateThumbnailProps {
@@ -127,3 +127,11 @@ export type UseDotButtonType = {
   scrollSnaps: number[];
   onDotButtonClick: (index: number) => void;
 };
+
+export type VoiceType =
+  | "alloy"
+  | "echo"
+  | "fable"
+  | "onyx"
+  | "nova"
+  | "shimmer";
