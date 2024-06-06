@@ -32,7 +32,7 @@ function LeftSidebar() {
               key={route}
               href={route}
               className={cn(
-                "flex gap-3 items-center py-4 max-lg:px-4 justify-center lg:justify-start",
+                "flex gap-3 items-center w-full py-4 max-lg:px-4 justify-center lg:justify-start",
                 isActive && "bg-nav-focus border-r-4 border-orange-1"
               )}
             >

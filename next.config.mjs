@@ -10,6 +10,10 @@ const nextConfig = {
         hostname: "honorable-spoonbill-776.convex.cloud",
         protocol: "https",
       },
+      {
+        hostname: "img.clerk.com",
+        protocol: "https",
+      },
     ],
   },
 };

@@ -7,7 +7,7 @@ import { api } from "@/convex/_generated/api";
 import PodcastCard from "@/components/PodcastCard";
 
 function Home() {
-  const trendingPodcasts = useQuery(api.podcasts.getTrendingPodcasts);
+  const allPodcasts = useQuery(api.podcasts.getAllPodcasts);
 
   return (
     <div className="mt-9 flex flex-col gap-9">
@@ -15,7 +15,7 @@ function Home() {
         <h1 className="text-20 font-bold text-white-1">Trending podcasts</h1>
 
         <div className="podcast_grid">
-          {trendingPodcasts?.map(
+          {allPodcasts?.map(
             ({ _id, podcastTitle, podcastDescription, imageUrl }) => (
               <PodcastCard
                 key={_id}
