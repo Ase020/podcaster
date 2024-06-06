@@ -2,15 +2,17 @@
 
 import { AudioContextType, AudioProps } from "@/types";
 import { usePathname } from "next/navigation";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React from "react";
 
-const AudioContext = createContext<AudioContextType | undefined>(undefined);
+const AudioContext = React.createContext<AudioContextType | undefined>(
+  undefined
+);
 
 const AudioProvider = ({ children }: { children: React.ReactNode }) => {
-  const [audio, setAudio] = useState<AudioProps | undefined>();
+  const [audio, setAudio] = React.useState<AudioProps | undefined>();
   const pathname = usePathname();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (pathname === "/create-podcast") setAudio(undefined);
   }, [pathname]);
 
@@ -22,7 +24,7 @@ const AudioProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const useAudio = () => {
-  const context = useContext(AudioContext);
+  const context = React.useContext(AudioContext);
 
   if (!context)
     throw new Error("useAudio must be used within an AudioProvider");
