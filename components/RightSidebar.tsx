@@ -11,16 +11,23 @@ import { api } from "@/convex/_generated/api";
 import { TopPodcastersProps } from "@/types";
 import { useRouter } from "next/navigation";
 import LoaderSpinner from "./LoaderSpinner";
+import { useAudio } from "@/providers/AudioProvider";
+import { cn } from "@/lib/utils";
 
 function RightSidebar() {
   const { user } = useUser();
   const router = useRouter();
+  const { audio } = useAudio();
   const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
 
   if (!topPodcasters) return <LoaderSpinner />;
 
   return (
-    <section className="text-white-1 right_sidebar">
+    <section
+      className={cn("text-white-1 right_sidebar", {
+        "h-[calc(100vh-140px)]": audio?.audioUrl,
+      })}
+    >
       <SignedIn>
         <Link href={`/profile/${user?.id}`} className="flex gap-3 pb-12">
           <UserButton />
